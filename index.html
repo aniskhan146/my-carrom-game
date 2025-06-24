@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ক্যারাম খেলা - অনলাইনে খেলুন</title>
+    <meta name="description" content="একটি আকর্ষণীয় অনলাইন ক্যারাম খেলা। আপনার দক্ষতা পরীক্ষা করুন এবং সর্বোচ্চ স্কোর করুন।">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Step 3: Paste your ad network's script here (e.g., Google AdSense) -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-your-publisher-id" crossorigin="anonymous"></script> -->
+
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            touch-action: none;
+            background-color: #0c0a18; /* Deep space page background */
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        .ad-slot {
+            background-color: #1f2937;
+            border: 1px dashed #4b5563;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            font-size: 1.25rem;
+            text-align: center;
+            border-radius: 0.5rem;
+            margin: 0.5rem;
+            min-height: 90px;
+        }
+        .ad-top-bottom {
+            width: 728px;
+            height: 90px;
+            max-width: 90vw;
+        }
+        .ad-side {
+            width: 160px;
+            height: 600px;
+        }
+        #page-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1rem;
+        }
+        .main-container {
+            background: rgba(20, 30, 48, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            width: auto;
+        }
+        canvas {
+            border: 10px solid #3c3a5e;
+            border-image: linear-gradient(45deg, #7f7fd5, #86a8e7, #91eae4) 1;
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(134, 168, 231, 0.5);
+            cursor: crosshair;
+            display: block;
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            aspect-ratio: 1 / 1;
+        }
+        .gradient-text {
+            background: linear-gradient(45deg, #91eae4, #86a8e7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .info-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .power-bar-container { width: 100%; background-color: #4a5568; border-radius: 0.5rem; overflow: hidden; border: 1px solid #718096; }
+        .power-bar { height: 1.5rem; width: 0%; background: linear-gradient(90deg, #f6e05e, #f56565); transition: width 0.1s linear; }
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; background: #86a8e7; cursor: pointer; border-radius: 50%; }
+        input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; background: #86a8e7; cursor: pointer; border-radius: 50%; }
+        @media (max-width: 1200px) {
+            .ad-side { display: none; }
+        }
+        @media (max-width: 768px) {
+            .ad-top-bottom { display: none; }
+            #page-container { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ad-slot ad-top-bottom">
+        <!-- Ad slot 1: Paste ad code here (e.g., from AdSense) -->
+        <a href="https://www.profitableratecpm.com/h7cjezka1?key=84fe661a24e6a885f2b8e956d29b0b02" target="_blank" style="display:block; width:100%; height:100%;"></a>
+    </div>
+    
+    <div id="page-container">
+        <div class="ad-slot ad-side">
+            <!-- Ad slot 2: Paste ad code here -->
+            <a href="https://www.profitableratecpm.com/dgkw4ijs?key=1bc600d07c7335bb99e8f2faf1ae4b0a" target="_blank" style="display:block; width:100%; height:100%;"></a>
+        </div>
+
+        <div class="main-container">
+            <div class="text-center mb-6">
+                <h1 class="text-4xl md:text-5xl font-bold gradient-text">ক্যারাম খেলা</h1>
+                <p class="text-gray-400 mt-2">ডান বাটন চেপে টেনে পাওয়ার বাড়ান এবং বাম বাটনে শট করুন।</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row items-center justify-center gap-8">
+                <div class="w-full lg:w-auto flex justify-center">
+                    <canvas id="carromBoard" width="600" height="600"></canvas>
+                </div>
+            
+                <div class="w-full lg:w-80 flex flex-col gap-4">
+                    <div id="status-panel" class="info-card h-20 flex items-center justify-center">
+                        <p id="status" class="text-xl font-medium text-red-400">আপনার চাল</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="info-card">
+                            <h2 class="font-semibold text-gray-300 flex items-center justify-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>স্কোর</h2>
+                            <p id="score" class="text-3xl font-bold text-cyan-300 mt-2">0</p>
+                        </div>
+                        <div class="info-card">
+                            <h2 class="font-semibold text-gray-300 flex items-center justify-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>শট</h2>
+                            <p id="shots" class="text-3xl font-bold text-lime-400 mt-2">0</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="mb-4">
+                            <label for="sensitivity" class="font-semibold text-gray-300 mb-2 block">শুট সেনসিটিভিটি</label>
+                            <div class="flex items-center gap-2">
+                                <input type="range" id="sensitivity" min="10" max="1000" value="250" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer">
+                                <span id="sensitivityValue" class="text-cyan-300 font-bold w-16 text-right">25.0</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-300 mb-2">পাওয়ার</h3>
+                            <div class="power-bar-container">
+                                <div id="powerBar" class="power-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-4">
+                        <button id="resetButton" class="w-full text-lg flex items-center justify-center gap-2 px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 transition-transform transform hover:scale-105"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"></path><path d="M21 21v-5h-5"></path></svg>নতুন করে শুরু</button>
+                        <button id="soundButton" class="w-full text-lg flex items-center justify-center gap-2 px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 transition-transform transform hover:scale-105">
+                            <span id="sound-on-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg></span>
+                            <span id="sound-off-icon" class="hidden"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg></span>
+                            সাউন্ড
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ad-slot ad-side">
+            <!-- Ad slot 3: Paste ad code here -->
+             <a href="https://www.profitableratecpm.com/c1t0006vx?key=806060cd013cca69e6e347139ec03eee" target="_blank" style="display:block; width:100%; height:100%;"></a>
+        </div>
+    </div>
+
+    <div class="ad-slot ad-top-bottom">
+        <!-- Ad slot 4: Paste ad code here -->
+         <a href="https://www.profitableratecpm.com/u9ri8ircm?key=c08c5459c6628f96852294dddccba669" target="_blank" style="display:block; width:100%; height:100%;"></a>
+    </div>
+
+    <script>
+        // --- GAME LOGIC (UNCHANGED) ---
+        const canvas = document.getElementById('carromBoard');
+        const ctx = canvas.getContext('2d');
+        const scoreEl = document.getElementById('score');
+        const shotsEl = document.getElementById('shots');
+        const statusEl = document.getElementById('status');
+        const resetButton = document.getElementById('resetButton');
+        const soundButton = document.getElementById('soundButton');
+        const soundOnIcon = document.getElementById('sound-on-icon');
+        const soundOffIcon = document.getElementById('sound-off-icon');
+        const sensitivitySlider = document.getElementById('sensitivity');
+        const sensitivityValueEl = document.getElementById('sensitivityValue');
+        const powerBar = document.getElementById('powerBar');
+
+        let audioCtx;
+        let isMuted = false;
+        function playSound(type, volume = 1) { if (!audioCtx || isMuted) return; const oscillator = audioCtx.createOscillator(); const gainNode = audioCtx.createGain(); switch(type) { case 'shoot': oscillator.type = 'triangle'; oscillator.frequency.setValueAtTime(300, audioCtx.currentTime); gainNode.gain.setValueAtTime(0.3 * volume, audioCtx.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3); break; case 'collide': oscillator.type = 'sine'; oscillator.frequency.setValueAtTime(150, audioCtx.currentTime); gainNode.gain.setValueAtTime(0.1 * volume, audioCtx.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1); break; case 'pocket': oscillator.type = 'sine'; oscillator.frequency.setValueAtTime(440, audioCtx.currentTime); gainNode.gain.setValueAtTime(0.4 * volume, audioCtx.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4); break; } oscillator.connect(gainNode); gainNode.connect(audioCtx.destination); oscillator.start(audioCtx.currentTime); oscillator.stop(audioCtx.currentTime + 0.5); }
+
+        const FRICTION = 0.985; const MIN_SPEED_THRESHOLD = 0.05; const POCKET_RADIUS = 25; const STRIKER_RADIUS = 15; const COIN_RADIUS = 12; const QUEEN_COLOR = '#e74c3c'; const WHITE_COIN_COLOR = '#ecf0f1'; const BLACK_COIN_COLOR = '#34495e'; const STRIKER_COLOR = '#2ecc71';
+        let MAX_SHOT_SPEED = 25.0; const MAX_AIM_POWER_DRAG = 200;
+        let score = 0, shots = 0; let pieces = [], striker, mouse = { x: 0, y: 0 }; let isShooting = false, isPositioningStriker = false, isAiming = false; let aimPower = 0;
+        let pockets = []; let stars = [];
+
+        class Piece { draw() { if (this.potted) return; ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); ctx.fillStyle = this.color; ctx.fill(); ctx.strokeStyle = 'rgba(0, 0, 0, 0.2)'; ctx.lineWidth = 2; ctx.stroke(); } constructor(x, y, radius, color, type = 'coin') { this.x = x; this.y = y; this.radius = radius; this.color = color; this.type = type; this.vx = 0; this.vy = 0; this.potted = false; } update() { if (this.potted) return; this.x += this.vx; this.y += this.vy; this.vx *= FRICTION; this.vy *= FRICTION; if (Math.abs(this.vx) < MIN_SPEED_THRESHOLD) this.vx = 0; if (Math.abs(this.vy) < MIN_SPEED_THRESHOLD) this.vy = 0; } }
+        function setupGame() { score = 0; shots = 0; pieces = []; isShooting = false; isPositioningStriker = false; isAiming = false; updateUI(); const W = canvas.width; const H = canvas.height; const center = { x: W / 2, y: H / 2 }; const pocketMargin = 30; pockets = [ { x: pocketMargin, y: pocketMargin }, { x: W - pocketMargin, y: pocketMargin }, { x: W - pocketMargin, y: H - pocketMargin }, { x: pocketMargin, y: H - pocketMargin } ]; pieces.push(new Piece(center.x, center.y, COIN_RADIUS, QUEEN_COLOR, 'queen')); const angleStep = Math.PI / 3; for (let i = 0; i < 6; i++) { const angle = i * angleStep; const dist = COIN_RADIUS * 2.2; const color = i % 2 === 0 ? WHITE_COIN_COLOR : BLACK_COIN_COLOR; pieces.push(new Piece(center.x + Math.cos(angle) * dist, center.y + Math.sin(angle) * dist, COIN_RADIUS, color)); } for (let i = 0; i < 12; i++) { const angle = (i * Math.PI / 6) + (Math.PI / 12); const dist = COIN_RADIUS * 4.4; const color = i % 2 === 0 ? BLACK_COIN_COLOR : WHITE_COIN_COLOR; pieces.push(new Piece(center.x + Math.cos(angle) * dist, center.y + Math.sin(angle) * dist, COIN_RADIUS, color)); } striker = new Piece(W / 2, H - 75, STRIKER_RADIUS, STRIKER_COLOR, 'striker'); pieces.push(striker); statusEl.textContent = "আপনার চাল"; stars = []; for (let i = 0; i < 200; i++) { stars.push({ x: Math.random() * W, y: Math.random() * H, radius: Math.random() * 1.5, alpha: Math.random() * 0.5 + 0.2 }); } }
+        function drawBoard() { const W = canvas.width; const H = canvas.height; const center = { x: W / 2, y: H / 2 }; const bgGradient = ctx.createLinearGradient(0, 0, 0, H); bgGradient.addColorStop(0, '#141e30'); bgGradient.addColorStop(1, '#243b55'); ctx.fillStyle = bgGradient; ctx.fillRect(0, 0, W, H); stars.forEach(star => { ctx.beginPath(); ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2); ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`; ctx.fill(); }); pockets.forEach(p => { const pocketGrad = ctx.createRadialGradient(p.x, p.y, POCKET_RADIUS * 0.2, p.x, p.y, POCKET_RADIUS); pocketGrad.addColorStop(0, 'rgba(0,0,0,1)'); pocketGrad.addColorStop(0.8, 'rgba(76, 76, 153, 0.5)'); pocketGrad.addColorStop(1, 'rgba(134, 168, 231, 0)'); ctx.fillStyle = pocketGrad; ctx.beginPath(); ctx.arc(p.x, p.y, POCKET_RADIUS + 5, 0, Math.PI * 2); ctx.fill(); }); ctx.strokeStyle = 'rgba(145, 234, 228, 0.7)'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(center.x, center.y, 80, 0, Math.PI * 2); ctx.setLineDash([5, 10]); ctx.stroke(); ctx.setLineDash([]); ctx.beginPath(); ctx.arc(center.x, center.y, 25, 0, Math.PI * 2); ctx.fillStyle = QUEEN_COLOR + '30'; ctx.fill(); ctx.lineWidth = 2; ctx.stroke(); const baseLineMargin = 100; const baseLineOffset = 75; ctx.lineWidth = 1; const drawBaseline = (x1, y1, x2, y2) => { ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); }; drawBaseline(baseLineMargin, baseLineOffset, W - baseLineMargin, baseLineOffset); drawBaseline(baseLineMargin, H - baseLineOffset, W - baseLineMargin, H - baseLineOffset); drawBaseline(baseLineOffset, baseLineMargin, baseLineOffset, H - baseLineMargin); drawBaseline(W - baseLineOffset, baseLineMargin, W - baseLineOffset, H - baseLineMargin); ctx.strokeStyle = QUEEN_COLOR; const arrowSize = 25; const arrowOffset = 130; const drawArrow = (x, y, rotation) => { ctx.save(); ctx.translate(x, y); ctx.rotate(rotation); ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(arrowSize / 2, arrowSize / 2); ctx.moveTo(0, 0); ctx.lineTo(-arrowSize / 2, arrowSize / 2); ctx.stroke(); ctx.restore(); }; drawArrow(center.x, arrowOffset, 0); drawArrow(center.x, H - arrowOffset, Math.PI); drawArrow(arrowOffset, center.y, -Math.PI/2); drawArrow(W - arrowOffset, center.y, Math.PI/2); }
+        function drawAimLine(){if(!isAiming||!striker||striker.potted)return;const dx=striker.x-mouse.x;const dy=striker.y-mouse.y;const dist=Math.sqrt(dx*dx+dy*dy); const power=Math.min(dist, MAX_AIM_POWER_DRAG);ctx.beginPath();ctx.moveTo(striker.x,striker.y);ctx.lineTo(striker.x+dx/dist*power,striker.y+dy/dist*power);const grad=ctx.createLinearGradient(striker.x,striker.y,mouse.x,mouse.y);grad.addColorStop(0,'#ff4747');grad.addColorStop(1,'#ffc3c3');ctx.strokeStyle=grad;ctx.lineWidth=3;ctx.stroke()}
+        function shoot(){ if(isShooting || !isAiming || aimPower === 0) return; const dx = striker.x - mouse.x; const dy = striker.y - mouse.y; const dist = Math.sqrt(dx * dx + dy * dy); if (dist === 0) return; const ndx = dx / dist; const ndy = dy / dist; const finalSpeed = (aimPower / 100) * MAX_SHOT_SPEED; striker.vx = ndx * finalSpeed; striker.vy = ndy * finalSpeed; shots++; updateUI(); statusEl.textContent="চাল চলছে..."; isShooting=true; isAiming=false; playSound('shoot', aimPower / 100); aimPower = 0; powerBar.style.width = '0%'; }
+        function handlePhysics(){ for(let i=0; i<pieces.length; i++){ pieces[i].update(); handleWallCollision(pieces[i]); pockets.forEach(pocket=>{ const dx=pieces[i].x-pocket.x; const dy=pieces[i].y-pocket.y; const distance=Math.sqrt(dx*dx+dy*dy); if(distance < POCKET_RADIUS && !pieces[i].potted){ handlePocketing(pieces[i]); } }); for(let j=i+1; j<pieces.length; j++){ if(pieces[i].potted || pieces[j].potted) continue; handlePieceCollision(pieces[i], pieces[j]); } } }
+        function handleWallCollision(p){const m=p.radius;if(p.x-m<0){p.x=m;p.vx*=-1}if(p.x+m>canvas.width){p.x=canvas.width-m;p.vx*=-1}if(p.y-m<0){p.y=m;p.vy*=-1}if(p.y+m>canvas.height){p.y=canvas.height-m;p.vy*=-1}}
+        function handlePieceCollision(p1,p2){ const dx=p2.x-p1.x; const dy=p2.y-p1.y; const distance=Math.sqrt(dx*dx+dy*dy); const min_dist=p1.radius+p2.radius; if(distance < min_dist){ const v_magnitude = Math.sqrt(p1.vx**2 + p1.vy**2) + Math.sqrt(p2.vx**2 + p2.vy**2); const sound_volume = Math.min(v_magnitude / 20, 1); playSound('collide', sound_volume); const overlap=0.5*(min_dist-distance); const nx=dx/distance; const ny=dy/distance; p1.x-=overlap*nx; p1.y-=overlap*ny; p2.x+=overlap*nx; p2.y+=overlap*ny; const angle=Math.atan2(dy,dx); const sin=Math.sin(angle); const cos=Math.cos(angle); let vx1=p1.vx*cos+p1.vy*sin; let vy1=p1.vy*cos-p1.vx*sin; let vx2=p2.vx*cos+p2.vy*sin; let vy2=p2.vy*cos-p2.vx*sin; [vx1,vx2]=[vx2,vx1]; p1.vx=vx1*cos-vy1*sin; p1.vy=vy1*cos+vx1*sin; p2.vx=vx2*cos-vy2*sin; p2.vy=vy2*cos+vx2*sin; } }
+        function handlePocketing(p){p.potted=true;p.vx=0;p.vy=0;playSound('pocket');if(p.type==='striker'){score-=5;statusEl.textContent="ফাউল! স্ট্রাইকার পকেটে।";setTimeout(resetStriker,1000)}else if(p.type==='queen'){score+=5;statusEl.textContent="রানী পকেটে!"}else if(p.color===BLACK_COIN_COLOR){score+=1;statusEl.textContent="কালো গুটি পকেটে!"}else if(p.color===WHITE_COIN_COLOR){score+=2;statusEl.textContent="সাদা গুটি পকেটে!"}updateUI()}
+        function resetStriker(){striker.potted=false;striker.x=canvas.width/2;striker.y=canvas.height/2;striker.vx=0;striker.vy=0}
+        function checkTurnOver(){if(!isShooting)return;const isMoving=pieces.some(p=>(p.vx!==0||p.vy!==0)&&!p.potted);if(!isMoving){isShooting=false;if(striker.potted)resetStriker();statusEl.textContent="আপনার চাল";if(checkGameOver()){statusEl.textContent=`খেলা শেষ! আপনার ফাইনাল স্কোর: ${score}`}}}
+        function checkGameOver(){return pieces.filter(p=>p.type==='coin'||p.type==='queen').every(p=>p.potted)}
+        function updateUI(){scoreEl.textContent=score;shotsEl.textContent=shots}
+        function gameLoop(){drawBoard();pieces.forEach(p=>p.draw());if(isShooting){handlePhysics();checkTurnOver()}drawAimLine();requestAnimationFrame(gameLoop)}
+        function getPointerPos(evt){const rect=canvas.getBoundingClientRect();const clientX=evt.clientX??evt.touches[0].clientX;const clientY=evt.clientY??evt.touches[0].clientY;return{x:clientX-rect.left,y:clientY-rect.top}}
+        function updateSensitivityDisplay() { MAX_SHOT_SPEED = sensitivitySlider.value / 10; sensitivityValueEl.textContent = MAX_SHOT_SPEED.toFixed(1); }
+        
+        canvas.addEventListener('contextmenu',e=>e.preventDefault());
+        canvas.addEventListener('mousedown',e=>{ if (!audioCtx) { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } if(isShooting)return; const pos=getPointerPos(e); if(e.button===0){ if(isAiming){shoot()} else{ const dx=pos.x-striker.x; const dy=pos.y-striker.y; if(Math.sqrt(dx*dx+dy*dy)<striker.radius+10){isPositioningStriker=true} } } else if(e.button===2){if(!isPositioningStriker){isAiming=true}} });
+        canvas.addEventListener('mousemove',e=>{ mouse=getPointerPos(e); if(isPositioningStriker){ const margin=striker.radius; striker.x=Math.max(margin,Math.min(mouse.x,canvas.width-margin)); striker.y=Math.max(margin,Math.min(mouse.y,canvas.height-margin)) } if (isAiming) { const dist = Math.sqrt(Math.pow(striker.x - mouse.x, 2) + Math.pow(striker.y - mouse.y, 2)); aimPower = Math.min(dist / MAX_AIM_POWER_DRAG, 1) * 100; powerBar.style.width = aimPower + '%'; } });
+        canvas.addEventListener('mouseup',e=>{ if(e.button===0){isPositioningStriker=false} else if(e.button===2){if (isAiming) { isAiming=false; aimPower = 0; powerBar.style.width = '0%'; } } });
+        
+        let touchIdentifier=null;
+        canvas.addEventListener('touchstart',e=>{ e.preventDefault(); if (!audioCtx) { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } if(isShooting)return; const touch=e.changedTouches[0];const pos=getPointerPos(touch);const dx=pos.x-striker.x;const dy=pos.y-striker.y; if(Math.sqrt(dx*dx+dy*dy)<striker.radius+20&&!isAiming){isPositioningStriker=true;touchIdentifier=touch.identifier} else{isAiming=true;touchIdentifier=touch.identifier}},{passive:false});
+        canvas.addEventListener('touchmove',e=>{e.preventDefault();for(let i=0;i<e.changedTouches.length;i++){if(e.changedTouches[i].identifier===touchIdentifier){mouse=getPointerPos(e.changedTouches[i]);if(isPositioningStriker){const margin=striker.radius;striker.x=Math.max(margin,Math.min(mouse.x,canvas.width-margin));striker.y=Math.max(margin,Math.min(mouse.y,canvas.height-margin))} else if(isAiming) { const dist = Math.sqrt(Math.pow(striker.x - mouse.x, 2) + Math.pow(striker.y - mouse.y, 2)); aimPower = Math.min(dist / MAX_AIM_POWER_DRAG, 1) * 100; powerBar.style.width = aimPower + '%';}} }});
+        canvas.addEventListener('touchend',e=>{e.preventDefault();for(let i=0;i<e.changedTouches.length;i++){if(e.changedTouches[i].identifier===touchIdentifier){if(isAiming&&!isPositioningStriker){shoot()}isPositioningStriker=false;isAiming=false;touchIdentifier=null; aimPower = 0; powerBar.style.width = '0%';}}});
+        
+        resetButton.addEventListener('click',setupGame);
+        soundButton.addEventListener('click', () => { isMuted = !isMuted; soundOnIcon.classList.toggle('hidden', isMuted); soundOffIcon.classList.toggle('hidden', !isMuted); });
+        sensitivitySlider.addEventListener('input', updateSensitivityDisplay);
+
+        setupGame();
+        updateSensitivityDisplay();
+        gameLoop();
+    </script>
+</body>
+</html>
